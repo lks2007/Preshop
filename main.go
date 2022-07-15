@@ -116,7 +116,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request){
     var p Page
 
     if !ok || len(keys[0]) < 1 {
-		p = Page{showAllObject(db), keys[0], false}
+		p = Page{showAllObject(db), "null", false}
     }else {
 		p = Page{searchObject(db, keys[0]), keys[0], true}
 	}
