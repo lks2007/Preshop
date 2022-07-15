@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"strings"
 
 	_ "github.com/lib/pq"
 )
@@ -78,10 +79,47 @@ func showAllObject(db *sql.DB) (map[int]map[string]string){
 	return element
 }
 
+func searchObject(db *sql.DB, keys string) map[int]map[string]string {
+	rows, err := db.Query("SELECT * FROM preshop WHERE name LIKE '"+strings.Title(keys)+"%';")
+	checkErr(err)
+ 
+	i := 0
+	element := make(map[int]map[string]string)
+
+	defer rows.Close()
+	for rows.Next() {
+		var id int
+		var name string
+		var img string
+		var categories int
+		var price int
+	
+		err = rows.Scan(&id, &name, &img, &categories, &price)
+		checkErr(err)
+		
+		element[i] = make(map[string]string)
+		element[i]["id"] = strconv.Itoa(id)
+		element[i]["name"] = name
+		element[i]["img"] = img
+		element[i]["categories"] = strconv.Itoa(categories)
+		element[i]["price"] = strconv.Itoa(price)
+
+		i += 1
+	}
+
+	return element
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request){
 	db := connectDb()
-	
-	p := Page{showAllObject(db), "null", false}
+	keys, ok := r.URL.Query()["search"]
+    var p Page
+
+    if !ok || len(keys[0]) < 1 {
+		p = Page{showAllObject(db), keys[0], false}
+    }else {
+		p = Page{searchObject(db, keys[0]), keys[0], true}
+	}
 
     t := template.New("Index")
     t = template.Must(t.ParseFiles("tmpl/index.tmpl", "tmpl/content.tmpl"))
