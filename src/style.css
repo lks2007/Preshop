@@ -240,6 +240,7 @@ b{
     grid-auto-rows: minmax(100px, auto);
     padding: 0px 15%;
     text-align: center;
+    row-gap: 50px;
 }
 
 .box{
