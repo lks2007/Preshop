@@ -12,3 +12,8 @@ $(".object-text").keypress(function(e){
         window.location.href = 'https://172.22.2.15/?search='+location
     }
 })
+
+$(".choice").click(function() {
+    $(".active").removeClass("active")
+    $(this).addClass("active")
+})
