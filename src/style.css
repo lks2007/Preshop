@@ -291,6 +291,7 @@ h3{
     margin: 0px 0px;
     text-align: center;
     width: fit-content;
+    transition: .8s all cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .round{
@@ -306,4 +307,102 @@ h3{
     align-items: center;
     transform: translate(9px, -5px);
     text-align: center;
+}
+
+.small:hover{
+    background-color: rgb(37, 46, 94);
+    color: #f1f1f1;
+    border: none;
+}
+
+.moda {
+    background-color: #F7F8FB;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    color: #13101a;
+    right: 5%;
+    top: 55px;
+    box-shadow: 0px 4px 8px #a1a1a1;
+    animation: appared 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+}
+
+.btn-3:hover {
+    border-radius: 50px;
+}
+
+.btn-3 {
+    border-radius: 4px;
+    width: 35px;
+    transition: all .5s;
+}
+
+.name, .email {
+    margin-left: 0px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.email {
+    font-size: 12px;
+    color: gray;
+}
+
+.box__:last-of-type {
+    margin-bottom: 0px;
+}
+.box__:first-of-type {
+  margin-top: 0px;
+}
+
+.box__ {
+    font-size: 18px;
+    text-align: left;
+}
+
+.box__ p {
+    margin-left: 6px;
+    font-size: 14.5px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(51, 51, 70);
+}
+
+.box__ {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+  font-size: 18px;
+  width: 150px;
+  text-align: left;
+}
+
+.mr-0 {
+  margin-right: 0px;
+  margin-top: 10px;
+  width: 45px;
+}
+
+.moda {
+    color: #13101a;
+}
+
+.name::first-letter {
+    text-transform: uppercase;
+}
+
+a {
+    color: rgb(51, 51, 70);
 }
