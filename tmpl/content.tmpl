@@ -1,0 +1,18 @@
+{{define "content"}}
+<div class="grid-row">
+    {{range $value := .Content}}
+        <div class="box">
+            <img src="/static/assets/{{ $value.img }}" alt="" class="img__box" />
+            <h3>{{ $value.name }}</h3>
+            <p class="result rayon">Entretien et Net...</p>
+            <div class="bottom__box">
+                <div class="price">
+                    <p class="result rayon">Price</p>
+                    <p class="coin">€ {{ $value.price }}</p>
+                </div>
+                <div class="btn small" aria-label="{{ $value.id }}">Add to cart</div>
+            </div>
+        </div>
+    {{end}}
+</div>
+{{end}}

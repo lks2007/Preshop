@@ -1,0 +1,88 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreShop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/alphardex/aqua.css/dist/aqua.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <div class="grid center">
+            <img src="/static/assets/logo.png" class="img-grid">
+        </div>
+        <div class="ungrid">
+            <div class="grid left">
+                <ul>
+                    <li><b>Shop</b></li>
+                    <li>Workshops</li>
+                    <li>Blogs</li>
+                </ul>
+            </div>
+            <div class="grid right">
+                <i class="far fa-shopping-bag"></i>
+                <i class="far fa-heart"></i>
+                <img src="/static/assets/profile.jpg" class="profile">
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper">
+        <div class="wrap l-wp">
+            <div class="block lb">Filter</div>
+            <div class="block lb">
+                <div class="title">Categories</div>
+                <div class="element">
+                    <input type="checkbox" class="form-check-input" id="high" name="high" />
+                    <label class="form-check-label" for="high">High-Tech</label>
+                </div>
+                <div class="element">
+                    <input type="checkbox" class="form-check-input" id="loisir" name="loisir" />
+                    <label class="form-check-label" for="loisir">Loisirs</label>
+                </div>
+                <div class="element">
+                    <input type="checkbox" class="form-check-input" id="food" name="food" />
+                    <label class="form-check-label" for="food">Nourriture</label>
+                </div>
+            </div>
+            <div class="block lb">
+                <div class="title">Price range</div>
+                <div class="element-price">
+                    <input type="number" class="form-mini" placeholder="Min"/>
+                    <input type="number" class="form-mini" placeholder="Max"/>
+                </div>
+                <input type="submit" value="Set price" class="set">
+            </div>
+        </div>
+        <div class="wrap r-wp">
+            <div class="search">
+                <div class="form-input">
+                    <i class="far fa-search"></i>
+                    <input type="text" class="object-text" placeholder="Search">
+                </div>
+                {{ if index .IsSearch }}
+                    <p class="result">Search result for <b class='highlight'>{{.Search}}</b></p>
+                {{ else }}
+                    <p class="result">No search</p>
+                {{end}}
+                <div class="sort">
+                    <p>Sort</p>
+                    <ul>
+                        <li class="btn active">Revelance</li>
+                        <li class="btn">Popular</li>
+                        <li class="btn">Most New</li>
+                        <li class="btn">Price <i class="far fa-chevron-down"></i></li>
+                    </ul>
+                </div>
+            </div>
+            {{template "content" .}}
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="/static/main.js"></script>
+</html>
+{{end}}
