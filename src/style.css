@@ -316,12 +316,12 @@ h3{
 }
 
 .moda {
-    background-color: #F7F8FB;
+    background-color: #fff;
     border-radius: 4px;
     padding: 5px;
     position: absolute;
     color: #13101a;
-    right: 5%;
+    right: 60px;
     top: 55px;
     box-shadow: 0px 4px 8px #a1a1a1;
     animation: appared 0.5s;
@@ -330,6 +330,74 @@ h3{
     align-items: center;
     flex-direction: column;
     width: 200px;
+    animation: appared 0.5s;
+}
+
+.img__minimize{
+    width: 50px;
+}
+
+.f-s{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.block__:last-of-type{
+    border: none;
+}
+
+.price__{
+    font-size: 14px;
+}
+
+.block__{
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 2px solid #f4f4f4;
+    padding: 7px 10px;
+}
+
+.fa-trash{
+    font-size: 16px;
+}
+
+.under_block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.block__mini{
+    margin-left: 5px;
+}
+
+.modab {
+    background-color: #ffffff;
+    border-radius: 4px;
+    position: absolute;
+    color: #13101a;
+    right: 140px;
+    top: 55px;
+    box-shadow: 0px 4px 8px #a1a1a1;
+    animation: appared 0.5s;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    animation: appared 0.5s;
+}
+
+@keyframes appared {
+    from{
+        top: 65px;
+        opacity: 0;
+    }
+    to{
+        top: 55px;
+        opacity: 1;
+    }
 }
 
 .btn-3:hover {

@@ -48,56 +48,61 @@ $(".small").click(function() {
     $(".round").text(result)
 })
 
-
-if($(".profile").length){
-    var a = 0;
+if($(".fa-shopping-bag").length){
+    var b = 0;
 }
 
-if($(".modal").length){
-    var i = 0;
-    $(".modal").click(function() {
+if($(".fa-shopping-bag").length){
+    var b = 0;
+    $(".fa-shopping-bag").click(function() {
         if(a === 1){
             $(".moda").remove()
             a = 0;
         }
 
-        if(i === 0){
+        if(b === 0){
             $("body").append(`
-                <div class="mod">
-                    <a class="b-box" href="/dashboard.php">
-                        <div class="box">
-                            <i class="fas fa-chart-line"></i>
-                            <p>Dashboard</p>
+                <div class="modab">
+                    <div class="block__">
+                        <div class="under_block">
+                            <img src="/static/assets/sopalin.webp" alt="" class="img__minimize">
+                            <div class="block__mini">
+                                <p class="f-s">Sopalin</p>
+                                <p class="price__">€ 2</p>
+                            </div>
                         </div>
-                    </a>
-                    <a class="b-box" href="/inbox.php">
-                        <div class="box__">
-                            <i class="fas fa-inbox"></i>
-                            <p>Inbox</p>
+                        <div class="under_block">
+                            <i class="far fa-trash"></i>
                         </div>
-                    </a>
-                    <a class="b-box" href="/setting.php">
-                        <div class="box__">
-                            <i class="fas fa-cog"></i>
-                            <p>Settings</p>
+                    </div>
+                    <div class="block__">
+                        <div class="under_block">
+                            <img src="/static/assets/tv.webp" alt="" class="img__minimize">
+                            <div class="block__mini">
+                                <p class="f-s">TV OLED 4k</p>
+                                <p class="price__">€ 1099</p>
+                            </div>
                         </div>
-                    </a>
+                        <div class="under_block">
+                            <i class="far fa-trash"></i>
+                        </div>
                 </div>
             `)
-            i = 1;
+            b = 1;
         }else{
-            $(".mod").remove()
-            i = 0;
+            $(".modab").remove()
+            b = 0;
         }
     })
 }
 
+
 if($(".profile").length){
     var a = 0;
     $(".profile").click(function() {
-        if(i === 1){
-            $(".mod").remove()
-            i = 0;
+        if(b === 1){
+            $(".modab").remove()
+            b = 0;
         }
 
         if(a === 0){
