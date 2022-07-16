@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -110,6 +111,34 @@ func searchObject(db *sql.DB, keys string) map[int]map[string]string {
 	return element
 }
 
+func getObject(db *sql.DB, cookie string) map[int]map[string]string {
+	Objects := strings.Split(cookie, "|")
+	element := make(map[int]map[string]string)
+
+	for index, v := range Objects{
+		rows, err := db.Query("SELECT id, name, img, price FROM preshop WHERE id='"+v+"';")
+		checkErr(err)
+	 
+		defer rows.Close()
+		for rows.Next() {
+			var id int
+			var name string
+			var img string
+			var price int
+		
+			err = rows.Scan(&id, &name, &img, &price)
+			checkErr(err)
+			
+			element[index] = make(map[string]string)
+			element[index]["id"] = strconv.Itoa(id)
+			element[index]["name"] = name
+			element[index]["img"] = img
+			element[index]["price"] = strconv.Itoa(price)
+		}
+	}
+	return element
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request){
 	db := connectDb()
 	keys, ok := r.URL.Query()["search"]
@@ -130,9 +159,20 @@ func indexHandler(w http.ResponseWriter, r *http.Request){
 	defer db.Close()
 }
 
+func apiHandler(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "application/json")
+	db := connectDb()
+	
+	jsonResp, _ := json.Marshal(getObject(db, r.FormValue("cookie")))
+	w.Write(jsonResp)
+	
+	return
+}
+
 func main(){
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./src"))))
 	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/api/", apiHandler)
 
 	http.ListenAndServeTLS(":443", "server.crt", "server.key", nil)
 }

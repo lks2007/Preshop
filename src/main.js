@@ -35,22 +35,76 @@ function set_cookie(cookiename, cookievalue, hours) {
     date.setTime(date.getTime() + Number(hours) * 3600 * 1000);
     document.cookie = cookiename + "=" + cookievalue + "; expires = " + date.toGMTString();
 }
-var result = getCookie("object").split("|").length-1;
+try {
+    var result = getCookie("object").split("|").length;
+    if(getCookie("object") === ""){
+        $(".round").text("0")
+    }else{
+        $(".round").text(result)
+    }
+} catch (error) {
+    $(".round").text("0")
+}
 
-$(".round").text(result)
+function addElement(){
+    fetch('/api/', {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        credentials: 'include',
+        body: 'cookie='+getCookie("object")
+    })
+    .then(response => response.json())
+    .then(json => {
+            for (let index = 0; index < Object.keys(json).length; index++) {
+                $('.modab').append(`
+                    <div class="block__">
+                        <div class="under_block">
+                            <img src="/static/assets/`+json[index]["img"]+`" alt="" class="img__minimize">
+                            <div class="block__mini">
+                                <p class="f-s">`+json[index]["name"]+`</p>
+                                <p class="price__">€ `+json[index]["price"]+`</p>
+                            </div>
+                        </div>
+                        <div class="under_block">
+                            <i class="far fa-trash" aria-label="`+json[index]["id"]+`"></i>
+                        </div>
+                    </div>
+                `)               
+            }
+            $(".fa-trash").click(function() {
+                var cookie = getCookie("object").split("|")
+                const index = cookie.indexOf($(this).attr("aria-label"));
+                if (index > -1) {
+                    cookie.splice(index, 1);
+                }
+
+                var cookieConcate = cookie.join("|")
+                set_cookie("object", cookieConcate)
+                $(this).parent().parent().remove()
+                $(".round").text($(".round").text()-1)
+            })
+    })
+}
 
 $(".small").click(function() {
-    set_cookie("object", getCookie("object")+"|"+$(this).attr("aria-label"), 24*365);
-    var object = getCookie("object")
-
-    var result = getCookie("object").split("|").length-1;
+    try {
+        if(getCookie("object").split("|").length === 0 || getCookie("object") === ""){
+            var result = getCookie("object").split("|").length;
+            set_cookie("object", $(this).attr("aria-label"), 24*365);
+        }else{
+            var result = getCookie("object").split("|").length;
+            set_cookie("object", getCookie("object")+"|"+$(this).attr("aria-label"), 24*365);
+        }
+    } catch (error) {
+        set_cookie("object", $(this).attr("aria-label"), 24*365);
+    }
+    var result = getCookie("object").split("|").length;
 
     $(".round").text(result)
+    location.reload()
 })
-
-if($(".fa-shopping-bag").length){
-    var b = 0;
-}
 
 if($(".fa-shopping-bag").length){
     var b = 0;
@@ -61,33 +115,7 @@ if($(".fa-shopping-bag").length){
         }
 
         if(b === 0){
-            $("body").append(`
-                <div class="modab">
-                    <div class="block__">
-                        <div class="under_block">
-                            <img src="/static/assets/sopalin.webp" alt="" class="img__minimize">
-                            <div class="block__mini">
-                                <p class="f-s">Sopalin</p>
-                                <p class="price__">€ 2</p>
-                            </div>
-                        </div>
-                        <div class="under_block">
-                            <i class="far fa-trash"></i>
-                        </div>
-                    </div>
-                    <div class="block__">
-                        <div class="under_block">
-                            <img src="/static/assets/tv.webp" alt="" class="img__minimize">
-                            <div class="block__mini">
-                                <p class="f-s">TV OLED 4k</p>
-                                <p class="price__">€ 1099</p>
-                            </div>
-                        </div>
-                        <div class="under_block">
-                            <i class="far fa-trash"></i>
-                        </div>
-                </div>
-            `)
+            addElement()
             b = 1;
         }else{
             $(".modab").remove()
@@ -96,6 +124,7 @@ if($(".fa-shopping-bag").length){
     })
 }
 
+$("body").append(`<div class="modab"></div>`)
 
 if($(".profile").length){
     var a = 0;
