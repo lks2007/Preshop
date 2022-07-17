@@ -86,24 +86,27 @@ if($(".fa-shopping-bag").length){
                 $("body").append(`<div class="modab"></div>`)
                 var totalPrice = 0;
                     for (let index = 0; index < Object.keys(json).length; index++) {
-                        $('.modab').append(`
-                            <div class="block__">
-                                <div class="under_block">
-                                    <img src="/static/assets/`+json[index]["img"]+`" alt="" class="img__minimize">
-                                    <div class="block__mini">
-                                        <p class="f-s">`+json[index]["name"]+`</p>
-                                        <p class="price__">€ `+json[index]["price"]+`</p>
+                            $('.modab').append(`
+                                <div class="block__">
+                                    <div class="under_block">
+                                        <img src="/static/assets/`+json[index]["img"]+`" alt="" class="img__minimize">
+                                        <div class="block__mini">
+                                            <p class="f-s">`+json[index]["name"]+`</p>
+                                            <p class="price__">€ `+json[index]["price"]+`</p>
+                                        </div>
+                                    </div>
+                                    <div class="under_block">
+                                        <i class="far fa-trash" price="`+json[index]["price"]+`" aria-label="`+json[index]["id"]+`"></i>
                                     </div>
                                 </div>
-                                <div class="under_block">
-                                    <i class="far fa-trash" price="`+json[index]["price"]+`" aria-label="`+json[index]["id"]+`"></i>
-                                </div>
-                            </div>
-                        `)
+                            `)
                         totalPrice += parseInt(json[index]["price"])      
                     }
                     console.log(totalPrice)
                     $(".modab").append(`
+                        <div class="block__" style="justify-content: center;">
+                            <a href="/validate/">See all</a>
+                        </div>
                         <div class="block__ pp">
                             Total price: <b class='bold'>€ `+totalPrice+`</b>
                         </div>
