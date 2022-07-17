@@ -46,48 +46,6 @@ try {
     $(".round").text("0")
 }
 
-function addElement(){
-    fetch('/api/', {
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        credentials: 'include',
-        body: 'cookie='+getCookie("object")
-    })
-    .then(response => response.json())
-    .then(json => {
-            for (let index = 0; index < Object.keys(json).length; index++) {
-                $('.modab').append(`
-                    <div class="block__">
-                        <div class="under_block">
-                            <img src="/static/assets/`+json[index]["img"]+`" alt="" class="img__minimize">
-                            <div class="block__mini">
-                                <p class="f-s">`+json[index]["name"]+`</p>
-                                <p class="price__">€ `+json[index]["price"]+`</p>
-                            </div>
-                        </div>
-                        <div class="under_block">
-                            <i class="far fa-trash" aria-label="`+json[index]["id"]+`"></i>
-                        </div>
-                    </div>
-                `)               
-            }
-            $(".fa-trash").click(function() {
-                var cookie = getCookie("object").split("|")
-                const index = cookie.indexOf($(this).attr("aria-label"));
-                if (index > -1) {
-                    cookie.splice(index, 1);
-                }
-
-                var cookieConcate = cookie.join("|")
-                set_cookie("object", cookieConcate)
-                $(this).parent().parent().remove()
-                $(".round").text($(".round").text()-1)
-            })
-    })
-}
-
 $(".small").click(function() {
     try {
         if(getCookie("object").split("|").length === 0 || getCookie("object") === ""){
@@ -115,7 +73,55 @@ if($(".fa-shopping-bag").length){
         }
 
         if(b === 0){
-            addElement()
+            fetch('/api/', {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                },
+                credentials: 'include',
+                body: 'cookie='+getCookie("object")
+            })
+            .then(response => response.json())
+            .then(json => {
+                $("body").append(`<div class="modab"></div>`)
+                var totalPrice = 0;
+                    for (let index = 0; index < Object.keys(json).length; index++) {
+                        $('.modab').append(`
+                            <div class="block__">
+                                <div class="under_block">
+                                    <img src="/static/assets/`+json[index]["img"]+`" alt="" class="img__minimize">
+                                    <div class="block__mini">
+                                        <p class="f-s">`+json[index]["name"]+`</p>
+                                        <p class="price__">€ `+json[index]["price"]+`</p>
+                                    </div>
+                                </div>
+                                <div class="under_block">
+                                    <i class="far fa-trash" price="`+json[index]["price"]+`" aria-label="`+json[index]["id"]+`"></i>
+                                </div>
+                            </div>
+                        `)
+                        totalPrice += parseInt(json[index]["price"])      
+                    }
+                    console.log(totalPrice)
+                    $(".modab").append(`
+                        <div class="block__ pp">
+                            Total price: <b class='bold'>€ `+totalPrice+`</b>
+                        </div>
+                    `)
+                    $(".fa-trash").click(function() {
+                        var cookie = getCookie("object").split("|")
+                        const index = cookie.indexOf($(this).attr("aria-label"));
+                        if (index > -1) {
+                            cookie.splice(index, 1);
+                        }
+                        totalPrice -= parseInt($(this).attr("price"))
+                        $(".pp").html("Total price: <b class='bold'>€ "+totalPrice+"</b>")
+                        var cookieConcate = cookie.join("|")
+                        set_cookie("object", cookieConcate)
+                        $(this).parent().parent().remove()
+                        $(".round").text($(".round").text()-1)
+                    })
+            })
             b = 1;
         }else{
             $(".modab").remove()
@@ -123,8 +129,6 @@ if($(".fa-shopping-bag").length){
         }
     })
 }
-
-$("body").append(`<div class="modab"></div>`)
 
 if($(".profile").length){
     var a = 0;

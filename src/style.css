@@ -7,6 +7,10 @@
 
 }
 
+body{
+    overflow: hidden;
+}
+
 .center{
     text-align: center;
 }
@@ -87,6 +91,7 @@ b{
 
 .r-wp{
     width: 100%;
+    overflow-y: auto;
 }
 
 .lb{
@@ -184,6 +189,18 @@ b{
     background-color: rgb(37, 46, 94);
 }
 
+.pp{
+    text-align: center;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+}
+
+.bold{
+    border: none;
+    font-weight: bolder;
+}
+
 .form-check-input{
     background-color: rgb(37, 46, 94) !important;
 }
@@ -248,6 +265,7 @@ b{
     padding: 0px 15%;
     text-align: center;
     row-gap: 50px;
+    margin-bottom: 100px;
 }
 
 .box{
@@ -383,6 +401,9 @@ h3{
 }
 
 .modab {
+    height: auto;
+    max-height: 252px;
+    overflow-y: auto;
     background-color: #ffffff;
     border-radius: 4px;
     position: absolute;
@@ -396,6 +417,12 @@ h3{
     flex-direction: column;
     animation: appared 0.5s;
 }
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
 
 @keyframes appared {
     from{
