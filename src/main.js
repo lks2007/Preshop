@@ -33,7 +33,7 @@ function getCookie(cName) {
 function set_cookie(cookiename, cookievalue, hours) {
     var date = new Date();
     date.setTime(date.getTime() + Number(hours) * 3600 * 1000);
-    document.cookie = cookiename + "=" + cookievalue + "; expires = " + date.toGMTString();
+    document.cookie = cookiename + "=" + cookievalue + "; path=/; expires = " + date.toGMTString();
 }
 try {
     var result = getCookie("object").split("|").length;
@@ -168,3 +168,17 @@ if($(".profile").length){
         }
     })
 }
+
+$(".fa-trash").click(function() {
+    var cookie = getCookie("object").split("|")
+    console.log(cookie)
+    const index = cookie.indexOf($(this).attr("aria-label"));
+    console.log(index)
+    if (index > -1) {
+        cookie.splice(index, 1);
+    }
+    console.log(cookie)
+    var cookieConcate = cookie.join("|")
+    set_cookie("object", cookieConcate)
+    $(this).parent().parent().remove()
+})

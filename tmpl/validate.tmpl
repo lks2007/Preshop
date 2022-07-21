@@ -1,0 +1,41 @@
+{{define "validate"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreShop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/alphardex/aqua.css/dist/aqua.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/static/validate.css">
+</head>
+<body>
+    <nav>
+        <div class="grid center">
+            <img src="/static/assets/logo.png" class="img-grid">
+        </div>
+        <div class="ungrid">
+            <div class="grid left">
+                <ul>
+                    <a href="/"><li>Shop</li></a>
+                    <li><b>Validate</b></li>
+                    <li>Blogs</li>
+                </ul>
+            </div>
+            <div class="grid right">
+                <i class="far fa-heart"></i>
+                <img src="/static/assets/profile.jpg" class="profile">
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper">
+        <div class="wrap r-wp">
+            {{template "contentObject" .}}
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="/static/main.js"></script>
+</html>
+{{end}}

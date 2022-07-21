@@ -509,3 +509,10 @@ a {
 a {
     color: rgb(51, 51, 70);
 }
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

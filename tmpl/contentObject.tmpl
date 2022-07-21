@@ -1,0 +1,18 @@
+{{define "contentObject"}}
+<div class="flex-column">
+    {{range $value := .Content}}
+        <div class="block__">
+            <div class="under_block">
+                <img src="/static/assets/{{ $value.img }}" alt="" class="img__minimize">
+                <div class="block__mini">
+                    <p class="f-s">{{ $value.name }}</p>
+                    <p class="price__">€ {{ $value.price }}</p>
+                </div>
+            </div>
+            <div class="under_block">
+                <i class="far fa-trash" price="{{ $value.price }}" aria-label="{{ $value.id }}"></i>
+            </div>
+        </div>
+    {{end}}
+</div>
+{{end}}

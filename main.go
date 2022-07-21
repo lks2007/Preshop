@@ -116,7 +116,7 @@ func getObject(db *sql.DB, cookie string) map[int]map[string]string {
 	element := make(map[int]map[string]string)
 
 	for index, v := range Objects{
-		rows, err := db.Query("SELECT id, name, img, price FROM preshop WHERE id='"+v+"';")
+		rows, err := db.Query("SELECT * FROM preshop WHERE id='"+v+"';")
 		checkErr(err)
 	 
 		defer rows.Close()
@@ -124,15 +124,17 @@ func getObject(db *sql.DB, cookie string) map[int]map[string]string {
 			var id int
 			var name string
 			var img string
+			var categories int
 			var price int
 		
-			err = rows.Scan(&id, &name, &img, &price)
+			err = rows.Scan(&id, &name, &img, &categories, &price)
 			checkErr(err)
 			
 			element[index] = make(map[string]string)
 			element[index]["id"] = strconv.Itoa(id)
 			element[index]["name"] = name
 			element[index]["img"] = img
+			element[index]["categories"] = strconv.Itoa(categories)
 			element[index]["price"] = strconv.Itoa(price)
 		}
 	}
@@ -165,14 +167,32 @@ func apiHandler(w http.ResponseWriter, r *http.Request){
 	
 	jsonResp, _ := json.Marshal(getObject(db, r.FormValue("cookie")))
 	w.Write(jsonResp)
-	
+
 	return
+}
+
+func validateHandler(w http.ResponseWriter, r *http.Request){
+	db := connectDb()
+    var p Page
+	var cookie, _ = r.Cookie("object")
+
+	p = Page{getObject(db, cookie.Value), "null", false}
+
+    t := template.New("Validate")
+    t = template.Must(t.ParseFiles("tmpl/validate.tmpl", "tmpl/contentObject.tmpl"))
+
+    err := t.ExecuteTemplate(w, "validate", p)
+	checkErr(err)
+
+	defer db.Close()
 }
 
 func main(){
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./src"))))
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/api/", apiHandler)
+	http.HandleFunc("/validate/", validateHandler)
+
 
 	http.ListenAndServeTLS(":443", "server.crt", "server.key", nil)
 }
