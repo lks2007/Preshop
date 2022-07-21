@@ -31,7 +31,11 @@
     </nav>
     <div class="wrapper">
         <div class="wrap r-wp">
-            {{template "contentObject" .}}
+            <div class="center__container">
+                <h3 class="shop">Shopping List</h3>
+                {{template "contentObject" .}}
+                <button class="btn set"><i class="far fa-check"></i> Check</button>
+            </div>
         </div>
     </div>
 </body>

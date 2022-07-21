@@ -183,8 +183,12 @@ a{
     color: black;
 }
 
+.block__:first-of-type{
+    margin-top: 10px;
+}
+
 .block__ {
-    margin-top: 50px;
+    margin-top: 30px;
     width: 400px;
     display: flex;
     justify-content: space-between;
@@ -223,6 +227,28 @@ a{
 .flex-column{
     display: flex;
     flex-direction: column;
+}
+
+.shop{
+    margin-top: 20px;
+}
+
+.center__container{
+    width: fit-content;
+    display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    padding-left: 37.5%;
+    padding-right: 37.5%;
+}
+
+.set {
+    border-radius: 12px;
+    width: 150px;
+    outline: none;
+    border: none;
+    color: #f1f1f1;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: rgb(37, 46, 94);
 }
